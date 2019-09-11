@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private PlayerController _player;
 
+    public static InputManager _inputMngr;
+
     [SerializeField]
     private float _movementOffset = 1.5f;
 
@@ -21,11 +23,7 @@ public class InputManager : MonoBehaviour
     private float _movementTime;
     [SerializeField]
     private float _movementduration = 0.1f;
-    private void Awake()
-    {
-        SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
-    }
-    private void SwipeDetector_OnSwipe(SwipeData data)
+    public void InputPlayer(SwipeData data)
     {
         switch(data.Direction)
         {

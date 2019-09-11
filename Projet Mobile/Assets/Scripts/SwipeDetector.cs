@@ -12,7 +12,13 @@ public class SwipeDetector : MonoBehaviour
     [SerializeField]
     private float minDistanceForSwipe = 20f;
 
-    public static event Action<SwipeData> OnSwipe = delegate { };
+    [SerializeField]
+    private InputManager _inputMngr;
+
+    private void Awake()
+    {
+        _inputMngr = GetComponent<InputManager>();
+    }
 
     private void Update()
     {
@@ -84,7 +90,7 @@ public class SwipeDetector : MonoBehaviour
             StartPosition = fingerDownPosition,
             EndPosition = fingerUpPosition
         };
-        OnSwipe(swipeData);
+        _inputMngr.InputPlayer(swipeData);
     }
 }
 
