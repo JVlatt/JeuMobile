@@ -6,8 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 1.0f;
-    [SerializeField]
-    private float _rotateAmount = 1.0f;
+
+    public float _radius = 4f;
+    public float _minRadius = 3f;
+    public float _maxRadius = 5f;
+
+    public float _rotateAngle = 0f;
 
     [SerializeField]
     private float _jumpHeight = 5.0f;
@@ -22,8 +26,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + _rotateAmount * Time.deltaTime, transform.rotation.eulerAngles.z);
-        _rb.velocity = transform.TransformDirection(new Vector3(0, 0, _speed));
+        _rotateAngle += Time.deltaTime * _speed;
+
+        Vector3 position = transform.position;
+        position.x = Mathf.Cos(_rotateAngle) * _radius;
+        position.z = Mathf.Sin(_rotateAngle) * _radius;
+
+        transform.position = position;
+        transform.eulerAngles = new Vector3(0, - _rotateAngle * Mathf.Rad2Deg, 0);
     }
     public void Jump()
     {
@@ -31,5 +41,14 @@ public class PlayerController : MonoBehaviour
         {
             _rb.AddForce(new Vector3(0, _jumpHeight, 0));
         }
+    }
+
+    public void MoveLeft()
+    {
+        _radius -= 1;
+    }
+    public void MoveRight()
+    {
+        _radius += 1;
     }
 }
