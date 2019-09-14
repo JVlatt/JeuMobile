@@ -6,20 +6,21 @@ public class LevelManager : MonoBehaviour
 {
 
     public static LevelManager Instance;
-    public PlayerController player;
+    public MoveOnPath player;
 
     [Header("Level Spawning")]
 
-    private float angleSpawnMin = 50*Mathf.Deg2Rad;
-    private float maxSegment = 25;
+    private float distanceSpawnMin = 10;
+    private float maxSegment = 20;
     private int nbSegmentActive=0;
     private int nbSegmentContinu=0;
-    private float currentSpawnAngle;
+    private Vector3 nextSpawnPosition;
     private Vector3 laneY;
     private int difficulty = 0;
+    private List<Transform> transforms = new List<Transform>();
+    private int currentWaypoint;
 
     public float nbSegmentBeforeTransition;
-    public float _radius;
 
     //List of segment
     public List<SegmentList> availableSegments = new List<SegmentList>();
@@ -30,19 +31,20 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        currentSpawnAngle = 20*Mathf.Deg2Rad;
+        transforms = player._paths[1]._wayPoints;
+        nextSpawnPosition = transforms[0].position;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        while (currentSpawnAngle < angleSpawnMin)
+        while ((nextSpawnPosition - transforms[0].position).magnitude < distanceSpawnMin)
             GenerateSegment();
     }
 
     private void Update()
     {
-        if (currentSpawnAngle < angleSpawnMin + player._rotateAngle)
+        if (distanceSpawnMin > (nextSpawnPosition - player.transform.position).magnitude )
             GenerateSegment();
     }
 
@@ -65,12 +67,29 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnSegment(bool isTransition)
     {
+        float distance = (nextSpawnPosition - transforms[currentWaypoint].position ).magnitude;
+
         List<Segment> posibleSeg;
 
         if (isTransition)
-            posibleSeg = availableTransition[difficulty].segments.FindAll(x => x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z); 
+            posibleSeg = availableTransition[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance); 
         else
-            posibleSeg = availableSegments[difficulty].segments.FindAll(x => x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z);
+            posibleSeg = availableSegments[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance);
+
+        while(posibleSeg.Count == 0)
+        {
+            nextSpawnPosition = transforms[currentWaypoint].position;
+            currentWaypoint++;
+            if (currentWaypoint >= transforms.Count)
+                currentWaypoint = 0;
+
+            distance = (nextSpawnPosition - transforms[currentWaypoint].position).magnitude;
+
+            if (isTransition)
+                posibleSeg = availableTransition[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance);
+            else
+                posibleSeg = availableSegments[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance);
+        }
 
         int id = Random.Range(0, posibleSeg.Count);
 
@@ -82,14 +101,12 @@ public class LevelManager : MonoBehaviour
 
         laneY = s.endY;
 
-        Vector3 position = s.transform.position;
-        position.x = Mathf.Cos(currentSpawnAngle) * _radius;
-        position.z = Mathf.Sin(currentSpawnAngle) * _radius;
+        s.transform.position = nextSpawnPosition;
 
-        s.transform.position = position;
-        s.transform.eulerAngles = new Vector3(0, 180+(-currentSpawnAngle) * Mathf.Rad2Deg, 0);
+        s.transform.rotation = Quaternion.LookRotation(transforms[currentWaypoint].position - s.transform.position);
+        s.transform.eulerAngles += new Vector3(0, 180, 0);
 
-        currentSpawnAngle += s.Lenght*Mathf.Deg2Rad;
+        nextSpawnPosition += s.transform.TransformDirection(Vector3.back * s.Lenght);
         nbSegmentActive++;
         s.Spawn();
         if (nbSegmentActive > maxSegment)

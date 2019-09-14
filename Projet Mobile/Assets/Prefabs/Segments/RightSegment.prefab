@@ -48,7 +48,7 @@ MonoBehaviour:
   ID: 2
   difficulty: 0
   isTransition: 0
-  Lenght: 10
+  Lenght: 5
   startY: {x: 0, y: 0, z: 0}
   endY: {x: 0, y: 0, z: 0}
 --- !u!1001 &2837119528706192931
