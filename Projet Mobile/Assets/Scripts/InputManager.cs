@@ -20,13 +20,13 @@ public class InputManager : MonoBehaviour
                 if (_player._pathId > 0)
                 {
                     _player._pathId--;
-                    _player.transform.position = _player.transform.position + transform.TransformDirection(Vector3.left);
+                    _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.left);
                 }
                 break;
             case SwipeDirection.Right:
                 if (_player._pathId < 2)
                 {
-                    _player.transform.position = _player.transform.position + transform.TransformDirection(Vector3.right);
+                    _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.right);
                     _player._pathId++;
                 }
                 break;
