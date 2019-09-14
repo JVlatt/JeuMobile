@@ -48,7 +48,7 @@ MonoBehaviour:
   ID: 0
   difficulty: 0
   isTransition: 0
-  Lenght: 5
+  Lenght: 10
   startY: {x: 0, y: 0, z: 0}
   endY: {x: 0, y: 0, z: 0}
 --- !u!1001 &4345676983128851923
@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 4275519785040086563, guid: 4bbbfa3d3a3f5664194f039c061e4f1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.04
+      value: 2.55
       objectReference: {fileID: 0}
     - target: {fileID: 4275519785040086563, guid: 4bbbfa3d3a3f5664194f039c061e4f1b,
         type: 3}
@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: 4275519785040086563, guid: 4bbbfa3d3a3f5664194f039c061e4f1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.66
+      value: -0.15000004
       objectReference: {fileID: 0}
     - target: {fileID: 4275519785040086563, guid: 4bbbfa3d3a3f5664194f039c061e4f1b,
         type: 3}

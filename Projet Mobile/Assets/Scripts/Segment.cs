@@ -9,7 +9,7 @@ public class Segment : MonoBehaviour
     public int difficulty;
     public bool isTransition;
 
-    public int Lenght;
+    public float Lenght;
     public Vector3 startY;
     public Vector3 endY;
 

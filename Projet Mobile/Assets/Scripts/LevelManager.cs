@@ -10,15 +10,16 @@ public class LevelManager : MonoBehaviour
 
     [Header("Level Spawning")]
 
-    private float distanceSpawnMin = 50;
-    private float maxSegment = 15;
+    private float angleSpawnMin = 50*Mathf.Deg2Rad;
+    private float maxSegment = 25;
     private int nbSegmentActive=0;
     private int nbSegmentContinu=0;
-    private float currentSpawnZ;
+    private float currentSpawnAngle;
     private Vector3 laneY;
     private int difficulty = 0;
 
     public float nbSegmentBeforeTransition;
+    public float _radius;
 
     //List of segment
     public List<SegmentList> availableSegments = new List<SegmentList>();
@@ -29,19 +30,19 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        currentSpawnZ = 0;
+        currentSpawnAngle = 20*Mathf.Deg2Rad;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        while (currentSpawnZ < distanceSpawnMin)
+        while (currentSpawnAngle < angleSpawnMin)
             GenerateSegment();
     }
 
     private void Update()
     {
-        if (currentSpawnZ < distanceSpawnMin + player.transform.position.z)
+        if (currentSpawnAngle < angleSpawnMin + player._rotateAngle)
             GenerateSegment();
     }
 
@@ -81,9 +82,14 @@ public class LevelManager : MonoBehaviour
 
         laneY = s.endY;
 
-        s.transform.position = Vector3.forward * currentSpawnZ;
+        Vector3 position = s.transform.position;
+        position.x = Mathf.Cos(currentSpawnAngle) * _radius;
+        position.z = Mathf.Sin(currentSpawnAngle) * _radius;
 
-        currentSpawnZ += s.Lenght;
+        s.transform.position = position;
+        s.transform.eulerAngles = new Vector3(0, 180+(-currentSpawnAngle) * Mathf.Rad2Deg, 0);
+
+        currentSpawnAngle += s.Lenght*Mathf.Deg2Rad;
         nbSegmentActive++;
         s.Spawn();
         if (nbSegmentActive > maxSegment)
