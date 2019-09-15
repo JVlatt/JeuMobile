@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
 
     
     [SerializeField]
-    private MoveOnPath _player;
+    private PlayerController _player;
 
     private float _endRadius;
     public void InputPlayer(SwipeData data)
@@ -19,19 +19,21 @@ public class InputManager : MonoBehaviour
             case SwipeDirection.Left:
                 if (_player._pathId > 0)
                 {
-                    _player._pathId--;
                     _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.left);
+                    Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.right);
+                    _player._pathId--;
                 }
                 break;
             case SwipeDirection.Right:
                 if (_player._pathId < 2)
                 {
                     _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.right);
+                    Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.left);
                     _player._pathId++;
                 }
                 break;
             case SwipeDirection.Up:
-                //_player.Jump();
+                _player.Jump();
                 break;
         }
     }

@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
 
     public static LevelManager Instance;
-    public MoveOnPath player;
+    public PlayerController player;
 
     [Header("Level Spawning")]
 

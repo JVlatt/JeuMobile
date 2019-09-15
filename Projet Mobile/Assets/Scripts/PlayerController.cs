@@ -4,51 +4,51 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 1.0f;
+    public PathEditor _pathToFollow;
+    public List<PathEditor> _paths;
+    public int _pathId = 1;
+    public int _currentWayPointId = 0;
+    public float _moveSpeed;
+    private float _reachDistance = 0.5f;
+    public float _rotationSpeed = 0.5f;
 
-    public float _radius = 4f;
-    public float _minRadius = 3f;
-    public float _maxRadius = 5f;
-
-    public float _rotateAngle = 0f;
+    Vector3 _lastPosition;
+    Vector3 _currentPosition;
 
     [SerializeField]
     private float _jumpHeight = 5.0f;
 
     private Rigidbody _rb;
-
-
-    private void Awake()
+    private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        _pathToFollow = _paths[_pathId];
+        _lastPosition = transform.position;
     }
 
     private void Update()
     {
-        _rotateAngle += Time.deltaTime * _speed;
+        _pathToFollow = _paths[_pathId];
 
-        Vector3 position = transform.position;
-        position.x = Mathf.Cos(_rotateAngle) * _radius;
-        position.z = Mathf.Sin(_rotateAngle) * _radius;
+        float distance = Vector3.Distance(_pathToFollow._wayPoints[_currentWayPointId].position, transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, _pathToFollow._wayPoints[_currentWayPointId].position, Time.deltaTime * _moveSpeed);
 
-        transform.position = position;
-        transform.eulerAngles = new Vector3(0, - _rotateAngle * Mathf.Rad2Deg, 0);
+        var rotation = Quaternion.LookRotation(_pathToFollow._wayPoints[_currentWayPointId].position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
+
+        if(distance <= _reachDistance)
+        {
+            _currentWayPointId++;
+        }
+
+        if (_currentWayPointId >= _pathToFollow._wayPoints.Count)
+            _currentWayPointId = 0;
     }
+
     public void Jump()
     {
-        if(Mathf.Abs(_rb.velocity.y)<0.1f)
+        if (Mathf.Abs(_rb.velocity.y) < 0.1f)
         {
             _rb.AddForce(new Vector3(0, _jumpHeight, 0));
         }
-    }
-
-    public void MoveLeft()
-    {
-        _radius -= 1;
-    }
-    public void MoveRight()
-    {
-        _radius += 1;
     }
 }
