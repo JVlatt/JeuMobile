@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private int _currentWayPointId = 0;
     [SerializeField]
     private float _moveSpeed;
-    private float _reachDistance = 0.5f;
+    private float _reachDistance = 1.0f;
     [SerializeField]
     private float _rotationSpeed = 0.5f;
 
