@@ -8,6 +8,23 @@ namespace Assets.Script
     {
         static GameManager _manger = null;
 
+        #region Variables
+        private BossScript m_currentBoss;
+        public BossScript _currentBoss
+        {
+            get { return m_currentBoss; }
+            set { m_currentBoss = value; }
+        }
+        
+
+        private UIManager m_UIManager;
+        public UIManager _UIManager
+        {
+            get { return m_UIManager; }
+            set { m_UIManager = value; }
+        }
+        #endregion
+
         public static GameManager GetManager()
         {
             if (_manger == null)
@@ -16,5 +33,6 @@ namespace Assets.Script
             }
             return _manger;
         }
+
     }
 }

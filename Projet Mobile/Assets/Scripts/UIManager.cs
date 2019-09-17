@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Assets.Script;
+
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider _bossHpBar;
+    public GameObject _bossUI;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        GameManager.GetManager()._UIManager = this;
+    }
+    public void SetBossHP()
+    {
+        _bossHpBar.value = GameManager.GetManager()._currentBoss._hp;
     }
 }
