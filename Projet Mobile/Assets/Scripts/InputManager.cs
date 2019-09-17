@@ -7,6 +7,8 @@ public class InputManager : MonoBehaviour
     private Vector3 _startPlayerPosition;
     private Vector3 _endPlayerPosition;
 
+    public Vector3 _offset;
+
     
     [SerializeField]
     private PlayerController _player;
@@ -20,7 +22,7 @@ public class InputManager : MonoBehaviour
                 if (_player._pathId > 0)
                 {
                     _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.left);
-                    Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.right);
+                    Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.right + _offset);
                     _player._pathId--;
                 }
                 break;
@@ -28,7 +30,7 @@ public class InputManager : MonoBehaviour
                 if (_player._pathId < 2)
                 {
                     _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.right);
-                    Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.left);
+                    Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.left - _offset);
                     _player._pathId++;
                 }
                 break;
