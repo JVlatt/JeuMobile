@@ -72,9 +72,9 @@ public class LevelManager : MonoBehaviour
         List<Segment> posibleSeg;
 
         if (isTransition)
-            posibleSeg = availableTransition[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance); 
+            posibleSeg = availableTransition[difficulty].segments.FindAll(x => (x.startY.x == laneY.x && laneY.x !=-1 || x.startY.y == laneY.y && laneY.y != -1 || x.startY.z == laneY.z && laneY.z != -1) && x.Lenght < distance); 
         else
-            posibleSeg = availableSegments[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance);
+            posibleSeg = availableSegments[difficulty].segments.FindAll(x => (x.startY.x == laneY.x && laneY.x != -1 || x.startY.y == laneY.y && laneY.y != -1 || x.startY.z == laneY.z && laneY.z != -1) && x.Lenght < distance);
 
         while(posibleSeg.Count == 0)
         {
@@ -86,9 +86,9 @@ public class LevelManager : MonoBehaviour
             distance = (nextSpawnPosition - transforms[currentWaypoint].position).magnitude;
 
             if (isTransition)
-                posibleSeg = availableTransition[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance);
+                posibleSeg = availableTransition[difficulty].segments.FindAll(x => (x.startY.x == laneY.x && laneY.x != -1 || x.startY.y == laneY.y && laneY.y != -1 || x.startY.z == laneY.z && laneY.z != -1) && x.Lenght < distance);
             else
-                posibleSeg = availableSegments[difficulty].segments.FindAll(x => (x.startY.x == laneY.x || x.startY.y == laneY.y || x.startY.z == laneY.z) && x.Lenght < distance);
+                posibleSeg = availableSegments[difficulty].segments.FindAll(x => (x.startY.x == laneY.x && laneY.x != -1 || x.startY.y == laneY.y && laneY.y != -1 || x.startY.z == laneY.z && laneY.z != -1) && x.Lenght < distance);
         }
 
         int id = Random.Range(0, posibleSeg.Count);

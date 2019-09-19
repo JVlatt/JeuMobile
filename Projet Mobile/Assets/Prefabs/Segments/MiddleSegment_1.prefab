@@ -185,8 +185,8 @@ MonoBehaviour:
   difficulty: 0
   isTransition: 0
   Lenght: 1
-  startY: {x: 1, y: 0, z: 1}
-  endY: {x: 1, y: 0, z: 1}
+  startY: {x: -1, y: 0, z: -1}
+  endY: {x: -1, y: 0, z: -1}
 --- !u!1 &5899372463601705209
 GameObject:
   m_ObjectHideFlags: 0

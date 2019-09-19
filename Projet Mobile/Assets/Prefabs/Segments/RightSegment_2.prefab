@@ -81,9 +81,9 @@ MonoBehaviour:
   ID: 7
   difficulty: 0
   isTransition: 0
-  Lenght: 1
-  startY: {x: 1, y: 1, z: 0}
-  endY: {x: 1, y: 1, z: 0}
+  Lenght: 2
+  startY: {x: -1, y: -1, z: 0}
+  endY: {x: -1, y: -1, z: 0}
 --- !u!1 &1170455960814338878
 GameObject:
   m_ObjectHideFlags: 0
