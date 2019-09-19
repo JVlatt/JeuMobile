@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
         switch(data.Direction)
         {
             case SwipeDirection.Left:
-                if (_player._pathId > 0)
+                if (_player._pathId > 0 && _player._canMove)
                 {
                     _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.left - _offset);
                     Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.right + _offset);
@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
                 }
                 break;
             case SwipeDirection.Right:
-                if (_player._pathId < 2)
+                if (_player._pathId < 2 && _player._canMove)
                 {
                     _player.transform.position = _player.transform.position + _player.transform.TransformDirection(Vector3.right + _offset);
                     Camera.main.transform.position = Camera.main.transform.position + Camera.main.transform.TransformDirection(Vector3.left - _offset);

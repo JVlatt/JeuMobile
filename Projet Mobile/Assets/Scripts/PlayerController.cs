@@ -25,8 +25,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _shootCooldown = 0.5f;
     private float _shootTimer = 0.0f;
+    [SerializeField]
+    private float _shootDuration = 1.0f;
+    private float _shootDurationTimer = 0f;
     public float _damages = 10.0f;
-
+    public bool _canMove = true;
+    private bool _isShooting = false;
 
     [SerializeField]
     private Rigidbody _rb;
@@ -40,6 +44,17 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         _shootTimer += Time.deltaTime;
+        if(_isShooting)
+        {
+            _canMove = false;
+            _shootDurationTimer += Time.deltaTime;
+            if(_shootDurationTimer >= _shootDuration)
+            {
+                _canMove = true;
+                _shootDurationTimer = 0;
+                _isShooting = false;
+            }
+        }
     }
 
     public void Jump()
@@ -71,11 +86,12 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        if(_shootTimer > _shootCooldown && GameManager.GetManager()._currentBoss != null)
+        if(_shootTimer >= _shootCooldown && !_isShooting && GameManager.GetManager()._currentBoss != null)
         {
             GameManager.GetManager()._currentBoss._hp -= _damages;
             GameManager.GetManager()._UIManager.SetBossHP();
             _shootTimer = 0;
+            _isShooting = true;
         }
     }
 }
