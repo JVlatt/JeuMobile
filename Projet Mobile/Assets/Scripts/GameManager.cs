@@ -15,7 +15,13 @@ namespace Assets.Script
             get { return m_currentBoss; }
             set { m_currentBoss = value; }
         }
-        
+
+        private PlayerController m_player;
+        public PlayerController _player
+        {
+            get { return m_player; }
+            set { m_player = value; }
+        }
 
         private UIManager m_UIManager;
         public UIManager _UIManager

@@ -23,38 +23,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _jumpHeight = 5.0f;
     [SerializeField]
-    private float _shootCooldown = 0.5f;
-    private float _shootTimer = 0.0f;
-    [SerializeField]
-    private float _shootDuration = 1.0f;
-    private float _shootDurationTimer = 0f;
-    public float _damages = 10.0f;
     public bool _canMove = true;
-    private bool _isShooting = false;
+    public bool _hasShot = false;
 
     [SerializeField]
     private Rigidbody _rb;
+
+    [SerializeField]
+    private float _damages = 5.0f;
     private void Start()
     {
         _pathToFollow = _paths[_pathId];
         _lastPosition = transform.position;
+        GameManager.GetManager()._player = this;
     }
 
     private void Update()
     {
         Move();
-        _shootTimer += Time.deltaTime;
-        if(_isShooting)
-        {
-            _canMove = false;
-            _shootDurationTimer += Time.deltaTime;
-            if(_shootDurationTimer >= _shootDuration)
-            {
-                _canMove = true;
-                _shootDurationTimer = 0;
-                _isShooting = false;
-            }
-        }
     }
 
     public void Jump()
@@ -84,14 +70,32 @@ public class PlayerController : MonoBehaviour
             _currentWayPointId = 0;
     }
 
-    public void Shoot()
+    public void Shoot(float amount)
     {
-        if(_shootTimer >= _shootCooldown && !_isShooting && GameManager.GetManager()._currentBoss != null)
+        if(GameManager.GetManager()._currentBoss != null)
         {
-            GameManager.GetManager()._currentBoss._hp -= _damages;
+            Debug.Log("Amount is : " + amount);
+            if (amount > 0.7f && !_hasShot)
+            {
+                GameManager.GetManager()._currentBoss._hp -= _damages * 2.0f;
+                _hasShot = true;
+                Debug.Log("Damages done : " + _damages * 2.0f);
+            }
+            if (amount > 0.3f && !_hasShot)
+            {
+                GameManager.GetManager()._currentBoss._hp -= _damages * 1.5f;
+                _hasShot = true;
+                Debug.Log("Damages done : " + _damages * 1.5f);
+            }
+            if (amount < 0.3f && !_hasShot)
+            {
+                GameManager.GetManager()._currentBoss._hp -= _damages;
+                _hasShot = true;
+                Debug.Log("Damages done : " + _damages);
+            }
             GameManager.GetManager()._UIManager.SetBossHP();
-            _shootTimer = 0;
-            _isShooting = true;
+            _hasShot = false;
+
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using Assets.Script;
+using UnityEngine.UI;
+
+
+public class ShootButton : MonoBehaviour
+{
+    [SerializeField]
+    float _maxHoldTime;
+    [SerializeField]
+    Image _powerBar;
+    float _holdTime = 0f;
+    private bool _isHolding = false;
+
+    private void Update()
+    {
+        if (_isHolding && _holdTime <= _maxHoldTime)
+        {
+            _holdTime += Time.deltaTime;
+            _powerBar.fillAmount = _holdTime / _maxHoldTime;
+        }
+    }
+
+    private void Start()
+    {
+        _powerBar.fillAmount = 0f;
+    }
+    public void Hold()
+    {
+        _isHolding = true;
+        GameManager.GetManager()._player._canMove = false;
+    }
+    public void Release()
+    {
+        _powerBar.fillAmount = 0f;
+        _isHolding = false;
+        GameManager.GetManager()._player.Shoot(_holdTime / _maxHoldTime);
+        GameManager.GetManager()._player._canMove = true;
+        _holdTime = 0;
+    }
+}
