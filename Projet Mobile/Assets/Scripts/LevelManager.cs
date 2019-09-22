@@ -10,23 +10,27 @@ public class LevelManager : MonoBehaviour
 
     [Header("Level Spawning")]
 
-    private float distanceSpawnMin = 10;
-    private float maxSegment = 20;
+    public float nbSegmentBeforeTransition;
+    public float nbSegmentBeforeItem;
+
+    public float distanceSpawnMin = 10;
+    public float maxSegment = 20;
     private int nbSegmentActive=0;
-    private int nbSegmentContinu=0;
+    private int nbSegmentContinuTransition=0;
+    private int nbSegmentContinuItem = 0;
     private Vector3 nextSpawnPosition;
     private Vector3 laneY;
     private int difficulty = 0;
     private List<Transform> transforms = new List<Transform>();
     private int currentWaypoint;
 
-    public float nbSegmentBeforeTransition;
-
     //List of segment
     public List<SegmentList> availableSegments = new List<SegmentList>();
     public List<SegmentList> availableTransition = new List<SegmentList>();
     private List<Segment> segmentsSpawn = new List<Segment>();
 
+    [Header("List of Item")]
+    public List<Item> items;
 
     private void Awake()
     {
@@ -38,6 +42,26 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (SegmentList item in availableSegments)
+        {
+            int i = 0;
+            foreach (Segment segment in item.segments)
+            {
+                segment.ID = i;
+                i++;
+            }
+        }
+
+        foreach (SegmentList item in availableTransition)
+        {
+            int i = 0;
+            foreach (Segment segment in item.segments)
+            {
+                segment.ID = i;
+                i++;
+            }
+        }
+
         while ((nextSpawnPosition - transforms[0].position).magnitude < distanceSpawnMin)
             GenerateSegment();
     }
@@ -53,15 +77,15 @@ public class LevelManager : MonoBehaviour
     {
         SpawnSegment(false);
 
-        if(Random.Range(0f,nbSegmentBeforeTransition)< (nbSegmentContinu))
+        if(Random.Range(0f,nbSegmentBeforeTransition)< (nbSegmentContinuTransition))
         {
             //random Spawn of Transition 
-            nbSegmentContinu = 0;
+            nbSegmentContinuTransition = 0;
             SpawnSegment(true);
         }
         else
         {
-            nbSegmentContinu++;
+            nbSegmentContinuTransition++;
         }
     }
 
@@ -108,7 +132,17 @@ public class LevelManager : MonoBehaviour
 
         nextSpawnPosition += s.transform.TransformDirection(Vector3.back * s.Lenght);
         nbSegmentActive++;
-        s.Spawn();
+
+        if (Random.Range(0, nbSegmentBeforeItem) < nbSegmentContinuItem)
+        {
+            s.Spawn(items);
+            nbSegmentContinuItem = 0;
+        }
+        else
+        {
+            s.Spawn();
+            nbSegmentContinuItem++;
+        }
         if (nbSegmentActive > maxSegment)
         {
             int i = 1;

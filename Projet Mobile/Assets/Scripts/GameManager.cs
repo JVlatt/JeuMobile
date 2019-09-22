@@ -29,6 +29,7 @@ namespace Assets.Script
             get { return m_UIManager; }
             set { m_UIManager = value; }
         }
+
         #endregion
 
         public static GameManager GetManager()
