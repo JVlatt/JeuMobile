@@ -83,16 +83,11 @@ public class PlayerController : MonoBehaviour
             }
             if (amount > 0.3f && !_hasShot)
             {
-                GameManager.GetManager()._currentBoss._hp -= _damages * 1.5f;
+                GameManager.GetManager()._currentBoss._hp -= _damages;
                 _hasShot = true;
                 Debug.Log("Damages done : " + _damages * 1.5f);
             }
-            if (amount < 0.3f && !_hasShot)
-            {
-                GameManager.GetManager()._currentBoss._hp -= _damages;
-                _hasShot = true;
-                Debug.Log("Damages done : " + _damages);
-            }
+            
             GameManager.GetManager()._UIManager.SetBossHP();
             _hasShot = false;
 

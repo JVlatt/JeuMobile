@@ -1501,7 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d6646cbd64e3c4091679a08d0621a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHoldTime: 5
+  _maxHoldTime: 3
   _powerBar: {fileID: 1329012452}
 --- !u!114 &526259767
 MonoBehaviour:
