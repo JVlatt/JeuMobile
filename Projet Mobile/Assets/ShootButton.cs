@@ -13,6 +13,8 @@ public class ShootButton : MonoBehaviour
     float _maxHoldTime;
     [SerializeField]
     Image _powerBar;
+    [SerializeField]
+    Image _powerBar2;
     float _holdTime = 0f;
     private bool _isHolding = false;
 
@@ -22,12 +24,14 @@ public class ShootButton : MonoBehaviour
         {
             _holdTime += Time.deltaTime;
             _powerBar.fillAmount = _holdTime / _maxHoldTime;
+            _powerBar2.fillAmount = _holdTime / _maxHoldTime;
         }
     }
 
     private void Start()
     {
         _powerBar.fillAmount = 0f;
+        _powerBar2.fillAmount = 0f;
     }
     public void Hold()
     {
@@ -37,6 +41,7 @@ public class ShootButton : MonoBehaviour
     public void Release()
     {
         _powerBar.fillAmount = 0f;
+        _powerBar2.fillAmount = 0f;
         _isHolding = false;
         GameManager.GetManager()._player.Shoot(_holdTime / _maxHoldTime);
         GameManager.GetManager()._player._canMove = true;
