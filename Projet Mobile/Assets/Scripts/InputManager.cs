@@ -54,5 +54,11 @@ public class InputManager : MonoBehaviour
             _data.Direction = SwipeDirection.Right;
             InputPlayer(_data);
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            SwipeData _data = new SwipeData();
+            _data.Direction = SwipeDirection.Up;
+            InputPlayer(_data);
+        }
     }
 }

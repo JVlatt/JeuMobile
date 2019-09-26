@@ -14,7 +14,22 @@ public class BossScript : MonoBehaviour
     private float _poisonTick = 0f;
     private float _poisonDamages = 0f;
     private bool _poisoned = false;
+    [SerializeField]
+    private float _attackCoolDown = 2.0f;
+    private float _attackTimer = 0f;
+    [SerializeField]
+    private float _pauseDuration = 10.0f;
+    private float _pauseTimer = 0f;
+    [SerializeField]
+    private int _nbAttack = 10;
+    private int _attackCounter = 0;
 
+    private Transform _spawnPos;
+
+    [SerializeField]
+    private float _spawnDistance = 10.0f;
+
+    private bool _exter = true;
 
     private void Awake()
     {
@@ -54,6 +69,19 @@ public class BossScript : MonoBehaviour
                     _poisoned = false;
                 }
             }
+            _pauseTimer += Time.deltaTime;
+            if(_pauseTimer >= _pauseDuration)
+            {
+                _attackTimer += Time.deltaTime;
+                if(_attackTimer >= _attackCoolDown)
+                {
+                    _attackTimer = 0;
+                    Shoot(_exter);
+                    if (_attackCounter >= _nbAttack)
+                        _pauseTimer = 0;
+                }
+            }
+
         }
 
     }
@@ -64,5 +92,35 @@ public class BossScript : MonoBehaviour
         _poisonTimer = 0;
         _poisonTick = 0;
         _poisoned = true;
+    }
+
+    public void Shoot(bool isExter)
+    {
+        if(isExter)
+        {
+            Instantiate(Resources.Load("Exter1"));
+            Instantiate(Resources.Load("Exter2"));
+        }
+        else
+        {
+            Instantiate(Resources.Load("Inter"));
+        }
+        _exter = !isExter;
+        _attackCounter++;
+    }
+
+    public void GetPositions()
+    {
+        float distance = Vector3.Distance(GameManager.GetManager()._player.transform.position, GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId].position);
+        if ( distance >= _spawnDistance)
+        {
+            Vector3 norm = Vector3.Normalize(GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId].position - GameManager.GetManager()._player.transform.position);
+            _spawnPos.position = GameManager.GetManager()._player.transform.position + (_spawnDistance * norm);
+            _spawnPos.rotation = Quaternion.LookRotation(GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId].position - transform.position);
+        }
+        else
+        {
+            float dist = _spawnDistance - distance;
+        }
     }
 }

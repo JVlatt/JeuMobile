@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour
     private PathEditor _pathToFollow;
     public List<PathEditor> _paths;
     public int _pathId = 1;
-    [SerializeField]
-    private int _currentWayPointId = 0;
+    public int _currentWayPointId = 0;
     [SerializeField]
     private float _moveSpeed;
     private float _reachDistance = 1.0f;
@@ -33,7 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _damages = 5.0f;
     [SerializeField]
-    private float m_maxHoldTime;
+    private float m_maxHoldTime = 3.0f;
     public float _maxHoldTime
     {
         get { return m_maxHoldTime; }
@@ -105,6 +104,7 @@ public class PlayerController : MonoBehaviour
                 GameManager.GetManager()._currentBoss._hp -= _damages * 2.0f;
                 _hasShot = true;
                 Debug.Log("Damages done : " + _damages * 2.0f);
+                Instantiate(Resources.Load("PlayerBullet"), transform.position, Quaternion.identity, Camera.main.transform);
                 if (poisonValue > 0)
                     GameManager.GetManager()._currentBoss.setupPoison(poisonValue);
             }
@@ -113,10 +113,10 @@ public class PlayerController : MonoBehaviour
                 GameManager.GetManager()._currentBoss._hp -= _damages;
                 _hasShot = true;
                 Debug.Log("Damages done : " + _damages * 1.5f);
+                Instantiate(Resources.Load("PlayerBullet"), transform.position, Quaternion.identity, Camera.main.transform);
                 if (poisonValue > 0)
                     GameManager.GetManager()._currentBoss.setupPoison(poisonValue);
             }
-            
             GameManager.GetManager()._UIManager.SetBossHP();
             _hasShot = false;
         }
