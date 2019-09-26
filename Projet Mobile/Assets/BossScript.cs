@@ -7,6 +7,8 @@ public class BossScript : MonoBehaviour
 {
 
     public float _hp = 100;
+    private const float tempsPoison = 0.5f;
+
 
     private void Awake()
     {
@@ -24,6 +26,11 @@ public class BossScript : MonoBehaviour
             Destroy(this.gameObject);
             GameManager.GetManager()._UIManager._bossUI.SetActive(false);
         }
+
+    }
+
+    public void setupPoison(float value)
+    {
 
     }
 }

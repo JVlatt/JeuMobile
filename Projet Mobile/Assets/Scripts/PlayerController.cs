@@ -31,6 +31,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float _damages = 5.0f;
+
+    [Header("Timer Item")]
+    private float timerAcceleration;
+    private float accelerationValue;
+    private float timerPoison;
+    private float poisonValue;
+
+
     private void Start()
     {
         _pathToFollow = _paths[_pathId];
@@ -41,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Move();
+        ItemTimer();
     }
 
     public void Jump()
@@ -56,7 +65,7 @@ public class PlayerController : MonoBehaviour
         _pathToFollow = _paths[_pathId];
 
         float distance = Vector3.Distance(_pathToFollow._wayPoints[_currentWayPointId].position, transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, _pathToFollow._wayPoints[_currentWayPointId].position, Time.deltaTime * _moveSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, _pathToFollow._wayPoints[_currentWayPointId].position, Time.deltaTime * (_moveSpeed+accelerationValue));
 
         var rotation = Quaternion.LookRotation(_pathToFollow._wayPoints[_currentWayPointId].position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
@@ -91,6 +100,37 @@ public class PlayerController : MonoBehaviour
             GameManager.GetManager()._UIManager.SetBossHP();
             _hasShot = false;
 
+            if (poisonValue > 0)
+                GameManager.GetManager()._currentBoss.setupPoison(poisonValue);
         }
+    }
+
+    private void ItemTimer()
+    {
+        if (timerAcceleration > 0)
+            timerAcceleration -= Time.deltaTime;
+        else if(timerAcceleration>-1)
+        {
+            accelerationValue = 0;
+        }
+
+        if (timerPoison > 0)
+            timerPoison -= Time.deltaTime;
+        else if (timerPoison > -1)
+        {
+            poisonValue = 0;
+        }
+    }
+
+    private void SetupPoison(float time,float value)
+    {
+        timerPoison = time;
+        poisonValue = value;
+    }
+
+    private void SetupAcc(float time, float value)
+    {
+        timerAcceleration = time;
+        accelerationValue = value;
     }
 }

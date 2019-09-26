@@ -10,8 +10,9 @@ public class Segment : MonoBehaviour
     public bool isTransition;
 
     public float Lenght;
-    public Vector3 startY;
     public Vector3 endY;
+    public Vector3 startY;
+    
 
     private Transform myItem;
 
