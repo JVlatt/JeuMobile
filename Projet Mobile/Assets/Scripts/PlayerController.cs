@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -44,6 +45,10 @@ public class PlayerController : MonoBehaviour
     private float accelerationValue;
     private float timerPoison;
     private float poisonValue;
+    private bool canTakeDamage;
+    private int nbBoublier;
+    private float timerDamage;
+    public float cdInvulnérabilité;
 
 
     private void Start()
@@ -124,6 +129,7 @@ public class PlayerController : MonoBehaviour
         else if(timerAcceleration>-1)
         {
             accelerationValue = 0;
+            timerAcceleration = -1;
         }
 
         if (timerPoison > 0)
@@ -131,7 +137,18 @@ public class PlayerController : MonoBehaviour
         else if (timerPoison > -1)
         {
             poisonValue = 0;
+            timerPoison = -1;
         }
+
+        if (canTakeDamage == false) {
+            if (timerDamage > 0)
+                timerDamage -= Time.deltaTime;
+            else
+            {
+                canTakeDamage = true;
+            }
+        }
+
     }
 
     public void SetupPoison(float time,float value)
@@ -167,11 +184,35 @@ public class PlayerController : MonoBehaviour
             case ItemPassif.TYPE.SUPERCAPSULE:
                 break;
             case ItemPassif.TYPE.SHIELD:
+                nbBoublier++;
                 break;
             case ItemPassif.TYPE.RETURN:
                 break;
             default:
                 break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (canTakeDamage)
+        {
+            if (other.tag == "Obstacle")
+            {
+                if (nbBoublier > 0)
+                {
+                    nbBoublier--;
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+
+            }
+            //if BossProjectil
+
+            canTakeDamage = false;
+            timerDamage = cdInvulnérabilité;
         }
     }
 }
