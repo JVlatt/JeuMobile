@@ -10,8 +10,6 @@ using UnityEngine.UI;
 public class ShootButton : MonoBehaviour
 {
     [SerializeField]
-    float _maxHoldTime;
-    [SerializeField]
     Image _powerBar;
     [SerializeField]
     Image _powerBar2;
@@ -20,11 +18,11 @@ public class ShootButton : MonoBehaviour
 
     private void Update()
     {
-        if (_isHolding && _holdTime <= _maxHoldTime)
+        if (_isHolding && _holdTime <= GameManager.GetManager()._player._maxHoldTime)
         {
             _holdTime += Time.deltaTime;
-            _powerBar.fillAmount = _holdTime / _maxHoldTime;
-            _powerBar2.fillAmount = _holdTime / _maxHoldTime;
+            _powerBar.fillAmount = _holdTime / GameManager.GetManager()._player._maxHoldTime;
+            _powerBar2.fillAmount = _holdTime / GameManager.GetManager()._player._maxHoldTime;
         }
     }
 
@@ -43,7 +41,7 @@ public class ShootButton : MonoBehaviour
         _powerBar.fillAmount = 0f;
         _powerBar2.fillAmount = 0f;
         _isHolding = false;
-        GameManager.GetManager()._player.Shoot(_holdTime / _maxHoldTime);
+        GameManager.GetManager()._player.Shoot(_holdTime / GameManager.GetManager()._player._maxHoldTime);
         GameManager.GetManager()._player._canMove = true;
         _holdTime = 0;
     }

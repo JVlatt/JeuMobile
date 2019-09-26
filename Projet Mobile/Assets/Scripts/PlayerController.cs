@@ -31,6 +31,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float _damages = 5.0f;
+    [SerializeField]
+    private float m_maxHoldTime;
+    public float _maxHoldTime
+    {
+        get { return m_maxHoldTime; }
+        set { m_maxHoldTime = value; }
+    }
 
     [Header("Timer Item")]
     private float timerAcceleration;
@@ -127,7 +134,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SetupPoison(float time,float value)
+    public void SetupPoison(float time,float value)
     {
         timerPoison = time;
         poisonValue = value;
@@ -136,6 +143,35 @@ public class PlayerController : MonoBehaviour
     public void SetupAcc(float time, float value)
     {
         timerAcceleration = time;
-        accelerationValue = value;
+        accelerationValue = _moveSpeed*value;
+    }
+
+    public void ActiveItem(ItemPassif.TYPE type,float value)
+    {
+        switch (type)
+        {
+            case ItemPassif.TYPE.ATTAQUE:
+                _damages += value;
+                break;
+            case ItemPassif.TYPE.SPEED_ATTAQUE:
+                _maxHoldTime -= value;
+                break;
+            case ItemPassif.TYPE.DOUBLE_ATTAQUE:
+                break;
+            case ItemPassif.TYPE.BERSERK:
+                break;
+            case ItemPassif.TYPE.NUDITE:
+                break;
+            case ItemPassif.TYPE.CHANCE:
+                break;
+            case ItemPassif.TYPE.SUPERCAPSULE:
+                break;
+            case ItemPassif.TYPE.SHIELD:
+                break;
+            case ItemPassif.TYPE.RETURN:
+                break;
+            default:
+                break;
+        }
     }
 }

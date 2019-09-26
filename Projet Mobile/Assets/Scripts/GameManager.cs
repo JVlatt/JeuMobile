@@ -35,6 +35,14 @@ namespace Assets.Script
             get { return m_UIManager; }
             set { m_UIManager = value; }
         }
+
+        private LevelManager m_LevelManager;
+        public LevelManager _LevelManager
+        {
+            get { return m_LevelManager; }
+            set { m_LevelManager = value; }
+        }
+
         #endregion
 
         public static GameManager GetManager()
