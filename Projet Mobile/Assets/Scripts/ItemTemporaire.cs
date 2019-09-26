@@ -39,13 +39,8 @@ public class ItemTemporaire : Item
                 GameManager.GetManager()._player.SetupPoison(time, value);
                 break;
             case TYPE.ACCELERATION:
-<<<<<<< Updated upstream
                 GameManager.GetManager()._player.SetupAcc(time, value);
                     break;
-=======
-                GameManager.GetManager()._player.SetupAcc(time,value);
-                break;
->>>>>>> Stashed changes
             default:
                 break;
         }
