@@ -15,6 +15,12 @@ namespace Assets.Script
             get { return m_currentBoss; }
             set { m_currentBoss = value; }
         }
+        private BossManager m_bossManager;
+        public BossManager _bossManager
+        {
+            get { return m_bossManager; }
+            set { m_bossManager = value; }
+        }
 
         private PlayerController m_player;
         public PlayerController _player
@@ -29,7 +35,6 @@ namespace Assets.Script
             get { return m_UIManager; }
             set { m_UIManager = value; }
         }
-
         #endregion
 
         public static GameManager GetManager()

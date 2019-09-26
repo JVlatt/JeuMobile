@@ -38,8 +38,8 @@ public class ItemTemporaire : Item
             case TYPE.POISON:
                 break;
             case TYPE.ACCELERATION:
-                GameManager.GetManager()._player._
-                break;
+                GameManager.GetManager()._player.SetupAcc(time, value);
+                    break;
             default:
                 break;
         }

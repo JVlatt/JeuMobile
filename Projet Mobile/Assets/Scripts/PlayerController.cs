@@ -76,7 +76,11 @@ public class PlayerController : MonoBehaviour
         }
 
         if (_currentWayPointId >= _pathToFollow._wayPoints.Count)
+        {
             _currentWayPointId = 0;
+            GameManager.GetManager()._bossManager._turn += 1;
+            GameManager.GetManager()._bossManager._turnCounter += 1;
+        }
     }
 
     public void Shoot(float amount)
@@ -89,19 +93,20 @@ public class PlayerController : MonoBehaviour
                 GameManager.GetManager()._currentBoss._hp -= _damages * 2.0f;
                 _hasShot = true;
                 Debug.Log("Damages done : " + _damages * 2.0f);
+                if (poisonValue > 0)
+                    GameManager.GetManager()._currentBoss.setupPoison(poisonValue);
             }
             if (amount > 0.3f && !_hasShot)
             {
                 GameManager.GetManager()._currentBoss._hp -= _damages;
                 _hasShot = true;
                 Debug.Log("Damages done : " + _damages * 1.5f);
+                if (poisonValue > 0)
+                    GameManager.GetManager()._currentBoss.setupPoison(poisonValue);
             }
             
             GameManager.GetManager()._UIManager.SetBossHP();
             _hasShot = false;
-
-            if (poisonValue > 0)
-                GameManager.GetManager()._currentBoss.setupPoison(poisonValue);
         }
     }
 
@@ -128,7 +133,7 @@ public class PlayerController : MonoBehaviour
         poisonValue = value;
     }
 
-    private void SetupAcc(float time, float value)
+    public void SetupAcc(float time, float value)
     {
         timerAcceleration = time;
         accelerationValue = value;
