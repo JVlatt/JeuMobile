@@ -10,7 +10,12 @@ public class PlayerController : MonoBehaviour
     private PathEditor _pathToFollow;
     public List<PathEditor> _paths;
     public int _pathId = 1;
-    public int _currentWayPointId = 0;
+    private int m_currentWayPointId = 0;
+    public int _currentWayPointId
+    {
+        get { return m_currentWayPointId; }
+        set { m_currentWayPointId = value;}
+    }
     [SerializeField]
     private float _moveSpeed;
     private float _reachDistance = 1.0f;
@@ -75,20 +80,20 @@ public class PlayerController : MonoBehaviour
     {
         _pathToFollow = _paths[_pathId];
 
-        float distance = Vector3.Distance(_pathToFollow._wayPoints[_currentWayPointId].position, transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, _pathToFollow._wayPoints[_currentWayPointId].position, Time.deltaTime * (_moveSpeed+accelerationValue));
+        float distance = Vector3.Distance(_pathToFollow._wayPoints[m_currentWayPointId].position, transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, _pathToFollow._wayPoints[m_currentWayPointId].position, Time.deltaTime * (_moveSpeed + accelerationValue));
 
-        var rotation = Quaternion.LookRotation(_pathToFollow._wayPoints[_currentWayPointId].position - transform.position);
+        var rotation = Quaternion.LookRotation(_pathToFollow._wayPoints[m_currentWayPointId].position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
 
         if (distance <= _reachDistance)
         {
-            _currentWayPointId++;
+            m_currentWayPointId++;
         }
 
-        if (_currentWayPointId >= _pathToFollow._wayPoints.Count)
+        if (m_currentWayPointId >= _pathToFollow._wayPoints.Count)
         {
-            _currentWayPointId = 0;
+            m_currentWayPointId = 0;
             GameManager.GetManager()._bossManager._turn += 1;
             GameManager.GetManager()._bossManager._turnCounter += 1;
         }
@@ -96,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(float amount)
     {
-        if(GameManager.GetManager()._currentBoss != null)
+        if (GameManager.GetManager()._currentBoss != null)
         {
             Debug.Log("Amount is : " + amount);
             if (amount > 0.7f && !_hasShot)
@@ -126,7 +131,7 @@ public class PlayerController : MonoBehaviour
     {
         if (timerAcceleration > 0)
             timerAcceleration -= Time.deltaTime;
-        else if(timerAcceleration>-1)
+        else if (timerAcceleration > -1)
         {
             accelerationValue = 0;
             timerAcceleration = -1;
@@ -140,7 +145,8 @@ public class PlayerController : MonoBehaviour
             timerPoison = -1;
         }
 
-        if (canTakeDamage == false) {
+        if (canTakeDamage == false)
+        {
             if (timerDamage > 0)
                 timerDamage -= Time.deltaTime;
             else
@@ -151,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SetupPoison(float time,float value)
+    public void SetupPoison(float time, float value)
     {
         timerPoison = time;
         poisonValue = value;
@@ -160,10 +166,10 @@ public class PlayerController : MonoBehaviour
     public void SetupAcc(float time, float value)
     {
         timerAcceleration = time;
-        accelerationValue = _moveSpeed*value;
+        accelerationValue = _moveSpeed * value;
     }
 
-    public void ActiveItem(ItemPassif.TYPE type,float value)
+    public void ActiveItem(ItemPassif.TYPE type, float value)
     {
         switch (type)
         {
