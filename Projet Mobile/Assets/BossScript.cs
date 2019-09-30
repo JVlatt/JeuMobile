@@ -101,19 +101,9 @@ public class BossScript : MonoBehaviour
 
     public void Shoot(bool isExter)
     {
-        /*if(isExter)
-        {
-            Instantiate(Resources.Load("Exter1"));
-            Instantiate(Resources.Load("Exter2"));
-        }
-        else
-        {
-            Instantiate(Resources.Load("Inter"));
-        }
-        _exter = !isExter;*/
         GetPositions();
-        Instantiate(Resources.Load("Test"), _spawnPos.position, Quaternion.identity);
-        _attackCounter++;
+        //Instantiate(Resources.Load("Test"), _spawnPos.position, Quaternion.identity);
+        //_attackCounter++;
     }
 
     public void GetPositions()
@@ -122,46 +112,39 @@ public class BossScript : MonoBehaviour
         float distance = Vector3.Distance(GameManager.GetManager()._player.transform.position, GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId].position);
         if ( distance >= _spawnDistance)
         {
-            Debug.Log("là");
             Vector3 norm = Vector3.Normalize(GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId].position - GameManager.GetManager()._player.transform.position);
             _spawnPos.position = GameManager.GetManager()._player.transform.position + (_spawnDistance * norm);
             _spawnPos.rotation = Quaternion.LookRotation(GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId].position - _spawnPos.position);
         }
         else
         {
-            Debug.Log("ou là");
-            _dist = _spawnDistance - distance;
-            while((_dist - GetNextDistance()) > 0)
+            float newDist = _spawnDistance - distance;
+            _spawnIdstart = GameManager.GetManager()._player._currentWayPointId;
+            _spawnIdend = GameManager.GetManager()._player._currentWayPointId + 1;
+
+            if (_spawnIdend >= GameManager.GetManager()._player._paths[1]._wayPoints.Count - 1)
             {
-                _spawnId += 1;
+                _spawnIdend = 0;
             }
-            Vector3 norm = Vector3.Normalize(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position - GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position);
-            _spawnPos.position = GameManager.GetManager()._player.transform.position + (_dist * norm);
+
+            while (newDist > Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position, GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position))
+            {
+                Debug.Log("Dist restante : " + newDist);
+                _spawnIdstart++;
+                _spawnIdend++;
+                if (_spawnIdend >= GameManager.GetManager()._player._paths[1]._wayPoints.Count)
+                {
+                    _spawnIdend = 0;
+                }
+                if (_spawnIdstart >= GameManager.GetManager()._player._paths[1]._wayPoints.Count)
+                {
+                    _spawnIdstart = 0;
+                }
+                newDist -= Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position, GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position);
+            }
+            Vector3 norm = Vector3.Normalize(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position - GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position);
+            _spawnPos.position = GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position + (newDist * norm);
             _spawnPos.rotation = Quaternion.LookRotation(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position - _spawnPos.position);
-
-        }
-    }
-
-    public float GetNextDistance()
-    {
-        if(GameManager.GetManager()._player._currentWayPointId + _spawnId > GameManager.GetManager()._player._paths[1]._wayPoints.Count)
-        {
-            _spawnIdstart = 0 + _spawnId;
-            _spawnIdend = 1 + _spawnId;
-            return Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[0 + _spawnId].position, GameManager.GetManager()._player._paths[1]._wayPoints[1 + _spawnId].position);
-
-        }
-        else if (GameManager.GetManager()._player._currentWayPointId + _spawnId == GameManager.GetManager()._player._paths[1]._wayPoints.Count)
-        {
-            _spawnIdstart = 0;
-            _spawnIdend = 1;
-            return Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[0].position, GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._paths[1]._wayPoints.Count - 1].position);
-        }
-        else
-        {
-            _spawnIdstart = GameManager.GetManager()._player._currentWayPointId + _spawnId;
-            _spawnIdend = _spawnIdstart = GameManager.GetManager()._player._currentWayPointId + _spawnId + 1;
-            return Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId +_spawnId + 1].position, GameManager.GetManager()._player._paths[1]._wayPoints[GameManager.GetManager()._player._currentWayPointId + _spawnId].position);
         }
     }
 }
