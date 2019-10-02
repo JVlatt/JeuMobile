@@ -129,6 +129,7 @@ public class BossScript : MonoBehaviour
 
             while (newDist > Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position, GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position))
             {
+                newDist -= Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position, GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position);
                 Debug.Log("Dist restante : " + newDist);
                 _spawnIdstart++;
                 _spawnIdend++;
@@ -140,7 +141,6 @@ public class BossScript : MonoBehaviour
                 {
                     _spawnIdstart = 0;
                 }
-                newDist -= Vector3.Distance(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position, GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position);
             }
             Vector3 norm = Vector3.Normalize(GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdend].position - GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position);
             _spawnPos.position = GameManager.GetManager()._player._paths[1]._wayPoints[_spawnIdstart].position + (newDist * norm);
