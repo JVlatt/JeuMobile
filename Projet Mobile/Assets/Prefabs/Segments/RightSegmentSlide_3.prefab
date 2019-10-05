@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7786406012915844012}
   m_Layer: 0
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8161875073633781916}
   m_Layer: 0
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 6704670047901469909}
   m_Layer: 0
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 3019113574440245767}
   m_Layer: 0
   m_Name: RightSegmentSlide_3
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 4219991310375549691}
   m_Layer: 0
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -661,7 +661,7 @@ GameObject:
   - component: {fileID: 1300925090841730484}
   m_Layer: 0
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 3801975607909388663}
   m_Layer: 0
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -930,6 +930,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_haut (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6676319942568452027, guid: 51be54355bdcee146a9deb23d0b142c3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 7709129320034266536, guid: 51be54355bdcee146a9deb23d0b142c3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1019,6 +1024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: obstacle_haut (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6676319942568452027, guid: 51be54355bdcee146a9deb23d0b142c3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 7709129320034266536, guid: 51be54355bdcee146a9deb23d0b142c3,
         type: 3}

@@ -208,9 +208,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (canTakeDamage)
+        if (other.transform.tag == "Obstacle")
         {
-            if (other.transform.tag == "Obstacle")
+            if (canTakeDamage)
             {
                 if (nbBoublier > 0)
                 {
@@ -221,11 +221,16 @@ public class PlayerController : MonoBehaviour
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
 
+                canTakeDamage = false;
+                timerDamage = cdInvulnérabilité;
+            }
+            else
+            {
+                Destroy(other.gameObject);
             }
             //if BossProjectil
 
-            canTakeDamage = false;
-            timerDamage = cdInvulnérabilité;
+            
         }
     }
 }
