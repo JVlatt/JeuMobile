@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     }
     [SerializeField]
     private float _moveSpeed;
+    [SerializeField]
     private float _reachDistance = 1.0f;
     [SerializeField]
     private float _rotationSpeed = 0.5f;
