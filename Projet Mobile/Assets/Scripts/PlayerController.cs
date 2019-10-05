@@ -54,12 +54,15 @@ public class PlayerController : MonoBehaviour
     private float timerDamage;
     public float cdInvulnérabilité;
 
+    private Animator _anim;
 
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         _pathToFollow = _paths[_pathId];
         _lastPosition = transform.position;
         GameManager.GetManager()._player = this;
+        _anim.SetFloat("Speed", 1);
     }
 
     private void Update()
