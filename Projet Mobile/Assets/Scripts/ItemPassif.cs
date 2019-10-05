@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Script;
 
-public class ItemPassif : MonoBehaviour
+public class ItemPassif : Item
 {
     public enum TYPE
     {

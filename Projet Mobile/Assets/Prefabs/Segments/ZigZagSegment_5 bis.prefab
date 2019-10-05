@@ -669,7 +669,7 @@ MonoBehaviour:
   ID: 16
   difficulty: 0
   isTransition: 0
-  Lenght: 5
+  Lenght: 6
   endY: {x: 0, y: 0, z: -1}
   startY: {x: -1, y: 0, z: 0}
 --- !u!1 &8225136223664376648

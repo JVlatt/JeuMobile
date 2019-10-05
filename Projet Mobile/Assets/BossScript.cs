@@ -52,6 +52,7 @@ public class BossScript : MonoBehaviour
             GameManager.GetManager()._bossManager._turnCounter = 0;
             Destroy(transform.parent.gameObject);
             GameManager.GetManager()._UIManager._bossUI.SetActive(false);
+            GameManager.GetManager()._LevelManager.BossKilled();
         }
         else
         {

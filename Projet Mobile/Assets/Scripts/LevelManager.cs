@@ -5,7 +5,6 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
 
-    public static LevelManager Instance;
     public PlayerController player;
 
     [Header("Level Spawning")]
@@ -32,9 +31,16 @@ public class LevelManager : MonoBehaviour
     [Header("List of Item")]
     public List<Item> items;
 
+    [Header("Score")]
+    public float PointPerSecond;
+    public float PointPerBoss;
+
+    private float CurentPoint;
+
+
+
     private void Awake()
     {
-        Instance = this;
         transforms = player._paths[1]._wayPoints;
         nextSpawnPosition = transforms[0].position;
     }
@@ -42,6 +48,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region SetupSpawning
         foreach (SegmentList item in availableSegments)
         {
             int i = 0;
@@ -61,6 +68,7 @@ public class LevelManager : MonoBehaviour
                 i++;
             }
         }
+        #endregion
 
         while ((nextSpawnPosition - transforms[0].position).magnitude < distanceSpawnMin)
             GenerateSegment();
@@ -70,8 +78,13 @@ public class LevelManager : MonoBehaviour
     {
         if (distanceSpawnMin > (nextSpawnPosition - player.transform.position).magnitude )
             GenerateSegment();
+        CurentPoint += Time.deltaTime * PointPerSecond;
     }
 
+    public void BossKilled()
+    {
+        CurentPoint += PointPerBoss;
+    }
 
     private void GenerateSegment()
     {

@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
         set { m_maxHoldTime = value; }
     }
 
+    public float speedPerSec;
+
     [Header("Timer Item")]
     private float timerAcceleration;
     private float accelerationValue;
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         ItemTimer();
+        _moveSpeed += Time.deltaTime * speedPerSec;
     }
 
     public void Jump()
@@ -203,11 +206,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (canTakeDamage)
         {
-            if (other.tag == "Obstacle")
+            if (other.transform.tag == "Obstacle")
             {
                 if (nbBoublier > 0)
                 {

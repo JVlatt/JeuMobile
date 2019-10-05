@@ -295,9 +295,9 @@ MonoBehaviour:
   ID: 14
   difficulty: 0
   isTransition: 0
-  Lenght: 3
-  startY: {x: -1, y: 0, z: -1}
+  Lenght: 4
   endY: {x: -1, y: -1, z: 0}
+  startY: {x: -1, y: 0, z: -1}
 --- !u!1 &3831969170317884299
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +788,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1912432696764944386}
     m_Modifications:
+    - target: {fileID: 999266811088990560, guid: ecc8768bf06142247b3b26909d7bbdf3,
+        type: 3}
+      propertyPath: m_Name
+      value: obstacle_bas (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 4288906814237246323, guid: ecc8768bf06142247b3b26909d7bbdf3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -853,11 +858,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1199.5131
       objectReference: {fileID: 0}
-    - target: {fileID: 999266811088990560, guid: ecc8768bf06142247b3b26909d7bbdf3,
-        type: 3}
-      propertyPath: m_Name
-      value: obstacle_bas (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc8768bf06142247b3b26909d7bbdf3, type: 3}
 --- !u!4 &1663899268035638437 stripped
@@ -873,6 +873,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1912432696764944386}
     m_Modifications:
+    - target: {fileID: 999266811088990560, guid: ecc8768bf06142247b3b26909d7bbdf3,
+        type: 3}
+      propertyPath: m_Name
+      value: obstacle_bas
+      objectReference: {fileID: 0}
     - target: {fileID: 4288906814237246323, guid: ecc8768bf06142247b3b26909d7bbdf3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -937,11 +942,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1199.5138
-      objectReference: {fileID: 0}
-    - target: {fileID: 999266811088990560, guid: ecc8768bf06142247b3b26909d7bbdf3,
-        type: 3}
-      propertyPath: m_Name
-      value: obstacle_bas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc8768bf06142247b3b26909d7bbdf3, type: 3}

@@ -296,9 +296,9 @@ MonoBehaviour:
   ID: 1
   difficulty: 0
   isTransition: 0
-  Lenght: 3
-  startY: {x: -1, y: 0, z: -1}
+  Lenght: 4
   endY: {x: 0, y: -1, z: -1}
+  startY: {x: -1, y: 0, z: -1}
 --- !u!1 &6022628664463123154
 GameObject:
   m_ObjectHideFlags: 0

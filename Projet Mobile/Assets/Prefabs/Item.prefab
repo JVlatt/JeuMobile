@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2433274776653419443}
-  - component: {fileID: 6361126593678882097}
+  - component: {fileID: -7954893936247663879}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6361126593678882097
+--- !u!114 &-7954893936247663879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6218394129783133467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7abae5445fd164eb4e1a992198230d, type: 3}
+  m_Script: {fileID: 11500000, guid: f383f8cae8f495c44a3ebb028ae683b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   "raret\xE9": 1
+  type: 7
+  value: 0

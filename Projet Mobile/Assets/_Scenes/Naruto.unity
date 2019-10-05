@@ -955,6 +955,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 100
+  _poisonDuration: 2
+  _attackCoolDown: 2
+  _pauseDuration: 10
+  _nbAttack: 10
+  _spawnPos: {fileID: 1004321117}
+  _spawnDistance: 10
 --- !u!1 &222743166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,7 +1913,9 @@ MonoBehaviour:
   - segments:
     - {fileID: 8731251781020101765, guid: bc064bcf283a4854b9135723589faf18, type: 3}
   items:
-  - {fileID: 6361126593678882097, guid: 262f9d582d3cb6e4fb286c9fc7c5a115, type: 3}
+  - {fileID: -7954893936247663879, guid: 262f9d582d3cb6e4fb286c9fc7c5a115, type: 3}
+  PointPerSecond: 10
+  PointPerBoss: 0
 --- !u!1 &638609751
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,6 +3009,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1281448107}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1004321116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004321117}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1004321117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004321116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 594.526, y: 391.94702, z: -15.552002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1004604490
 GameObject:
@@ -4982,7 +5020,6 @@ MonoBehaviour:
   - {fileID: 1281448106}
   - {fileID: 767126024}
   _pathId: 1
-  _currentWayPointId: 0
   _moveSpeed: 5
   _rotationSpeed: 10
   _jumpHeight: 5
@@ -4990,6 +5027,9 @@ MonoBehaviour:
   _hasShot: 0
   _rb: {fileID: 1867705617}
   _damages: 10
+  m_maxHoldTime: 3
+  speedPerSec: 1
+  "cdInvuln\xE9rabilit\xE9": 1
 --- !u!54 &1867705617 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 4784151329943091531, guid: f0dcae5e6f4531d4ead89cdc8ab80d69,
